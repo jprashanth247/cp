@@ -29,25 +29,37 @@ using namespace std;
 void solve(){
     int n;
     cin>>n;
-    vector<int>a(n);
+    vector<int>a(n),b(n);
+    int x=0;
     for(int i=0;i<n;i++){
         cin>>a[i];
+        x^=a[i];
     }
-    vector<int>pre=a, suf=a;
-    for(int i=1;i<n;i++){
-        pre[i]=min(pre[i-1],a[i]);
+    for(int i=0;i<n;i++){
+        cin>>b[i];
+        x^=b[i];
     }
-    for(int i=n-2;i>=0;i--){
-        suf[i]=max(suf[i+1],a[i]);
+    if(x==0){
+        cout<<"Tie\n";
+        return;
     }
-    for(int i=1;i<n;i++){
-        if(pre[i-1]>suf[i]){
-            cout<<"No\n";
-            return;
+    int bit;
+    for(int i=0;i<20;i++){
+        int y=(1<<i);
+        if((x&y)) bit=i;
+    }
+    int idx;
+    for(int i=0;i<n;i++){
+        if((a[i]^b[i])&(1<<bit)){
+            idx=i;
+            
         }
     }
-    cout<<"Yes\n";
-
+    if(idx%2==0){
+        cout<<"Ajisai\n";
+    }else{
+        cout<<"Mai\n";
+    }
     
  
 }
